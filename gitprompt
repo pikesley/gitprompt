@@ -12,12 +12,20 @@ COLOR_NONE="\[\e[0m\]"
  
 function parse_git_branch {
   git rev-parse --git-dir &> /dev/null
+
   git_status="$(git status 2> /dev/null)"
   branch_pattern="^On branch ([-_A-Za-z0-9]*)[^A-Za-z0-9]"
   remote_pattern="Your branch is (.*) of"
   diverge_pattern="Your branch and (.*) have diverged"
-  if [[ ! ${git_status} =~ "working directory clean" ]]; then
-    state="${RED}⚡"
+
+  if [[ ! ${git_status} =~ "working directory clean" ]] ;
+  then
+    state=" ${RED}⚡"
+  fi
+
+  if [[ ! ${git_status} ]] ;
+  then
+    state=""
   fi
 
   # add an else if or two here if you want to get more specific
@@ -28,13 +36,15 @@ function parse_git_branch {
       remote="${YELLOW}↓"
     fi
   fi
+
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="${YELLOW}↕"
   fi
+
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
   fi
-    echo " (${branch})${remote} ${state}"
+  echo " (${branch})${remote}${state}"
 }
  
 function rvm_version {
