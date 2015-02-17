@@ -47,23 +47,26 @@ function parse_git_branch {
   echo " (${branch})${remote}${state}"
 }
  
-function rvm_version {
-  local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
-  [ "$gemset" != "" ] && gemset="@$gemset"
-  local version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
+function rbenv_version {
+  local version=$(echo `rbenv version` | awk '{print $1}')
   [ "$version" != "" ] && version="$version"
-  local full="<$version$gemset>"
-  [ "$full" != "" ] && echo "${full}" # the colon at the end is a delimiter, you could use a space instead
+  local full="<$version>"
+  [ "$full" != "" ] && echo "${full}"
 } 
  
 function prompt_func() {
     previous_return_value=$?;
-    prompt="${TITLEBAR}${BLUE}[${RED}{\w} ${YELLOW}$(rvm_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
+    prompt="${TITLEBAR}${BLUE}[${RED}{\w} ${YELLOW}$(rbenv_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
     if test $previous_return_value -eq 0
     then
         PS1="${prompt}➔ "
     else
         PS1="${prompt}${RED}➔${COLOR_NONE} "
+    fi
+
+    if test ${UID} -eq 0
+    then
+      PS1="# "
     fi
 }
  
