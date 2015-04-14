@@ -2,7 +2,7 @@
 
 #What the hell is this?
 
-Super-awesome bash prompt with RVM and Git stuff in it. Based off a Gist I found ages ago (and can no longer track down) which stopped working properly when I 'upgraded' to Mavericks
+Super-awesome bash prompt with rbenv and Git stuff in it. Based off a Gist I found ages ago (and can no longer track down) which stopped working properly when I 'upgraded' to Mavericks
 
 #Usage
 
