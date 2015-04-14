@@ -1,4 +1,4 @@
-![Imgur](http://i.imgur.com/u8qNH6z.png)
+![Imgur](http://i.imgur.com/YZZ1Dy2.png)
 
 #What the hell is this?
 
