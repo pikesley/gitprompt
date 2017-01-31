@@ -10,7 +10,7 @@ LIGHT_GREEN="\[\033[1;32m\]"
 WHITE="\[\033[1;37m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
 COLOR_NONE="\[\e[0m\]"
- 
+
 function parse_git_branch {
   git rev-parse --git-dir &> /dev/null
 
@@ -19,7 +19,7 @@ function parse_git_branch {
   remote_pattern="Your branch is (.*) of"
   diverge_pattern="Your branch and (.*) have diverged"
 
-  if [[ ! ${git_status} =~ "working directory clean" ]] ;
+  if [[ ! ${git_status} =~ "working tree clean" ]] ;
   then
     state=" ${RED}⚡"
   fi
@@ -47,17 +47,18 @@ function parse_git_branch {
   fi
   echo " (${branch})${remote}${state}"
 }
- 
+
 function rbenv_version {
   local version=$(echo `rbenv version` | awk '{print $1}')
   [ "$version" != "" ] && version="$version"
   local full="<$version>"
   [ "$full" != "" ] && echo "${full}"
-} 
- 
+}
+
 function prompt_func() {
     previous_return_value=$?;
-    prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w} ${YELLOW}$(rbenv_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
+    #prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w} ${YELLOW}$(rbenv_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
+    prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w}${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
     if test $previous_return_value -eq 0
     then
         PS1="${prompt}➔ "
@@ -70,6 +71,6 @@ function prompt_func() {
       PS1="# "
     fi
 }
- 
+
 PROMPT_COMMAND=prompt_func
 alias git-fuckit='git clean -d -x -f; git reset --hard'
