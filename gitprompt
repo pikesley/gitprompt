@@ -72,5 +72,5 @@ function prompt_func() {
     fi
 }
 
-PROMPT_COMMAND=prompt_func
+PROMPT_COMMAND=update_terminal_cwd && prompt_func
 alias git-fuckit='git clean -d -x -f; git reset --hard'
