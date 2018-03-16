@@ -57,8 +57,7 @@ function rbenv_version {
 
 function prompt_func() {
     previous_return_value=$?;
-    #prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w} ${YELLOW}$(rbenv_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
-    prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w}${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
+    prompt="${TITLEBAR}${BLUE}[${PURPLE}{\w} ${YELLOW}$(rbenv_version)${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
     if test $previous_return_value -eq 0
     then
         PS1="${prompt}➔ "
